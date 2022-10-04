@@ -23,30 +23,29 @@ export const Register = () => {
         const storageRef = ref(storage, authRes.user.uid);
         const uploadPhoto = uploadBytesResumable(storageRef, data.photo);
         uploadPhoto.on('state_changed',
-            (error) => {
+            (snapshot) => {
             },
-            async () => {
-                const downloadUrl = await getDownloadURL(uploadPhoto.snapshot.ref);
-                await updateProfile(authRes.user, {
-                    displayName: data.displayName,
-                    photoURL: downloadUrl
-                });
-                try {
+            (error) => {
+                console.log(error)
+            },
+            () => {
+
+                getDownloadURL(uploadPhoto.snapshot.ref).then(async (downloadURL) => {
+                    await updateProfile(authRes.user, {
+                        displayName: data.displayName,
+                        photoURL: downloadURL
+                    });
                     await setDoc(doc(db, "users", authRes.user.uid), {
                         uid: authRes.user.uid,
                         displayName: data.displayName,
                         email: data.email,
-                        photo: downloadUrl
+                        photo: downloadURL
                     });
-                } catch (err) {
-                    console.log(err)
-
-                }
-
-                navigate('./login')
-
+                    navigate('/login')
+                });
             }
         );
+
 
     }
     return (
