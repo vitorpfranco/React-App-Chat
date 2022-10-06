@@ -6,15 +6,15 @@ import { AuthContext } from "./AuthContext";
 interface LayoutProps {
     children: JSX.Element
 }
-const currentUser = useContext(AuthContext)
 export const ChatContext = createContext<any>(null)
 
 export const ChatContextProvider = ({ children }: LayoutProps) => {
+    const currentUser = useContext(AuthContext)
     const INITIAL_STATE = {
         chatId: 'null',
         user: {}
     }
-    const chatReducer = ({ state, action }: any) => {
+    const chatReducer = (state: any, action: any) => {
         switch (action.type) {
             case "CHANGE_USER":
                 return {

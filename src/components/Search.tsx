@@ -1,6 +1,5 @@
 import { collection, doc, DocumentData, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore'
 import React, { useContext, useState } from 'react'
-import photo from '../assets/profile.jpg'
 import { db } from '../config/firebase'
 import { AuthContext } from '../context/AuthContext';
 interface user {
@@ -71,7 +70,7 @@ export const Search = () => {
             </div>
             {err && <p>User not found</p>}
             {user && <div className="flex gap-2 items-center mt-3 cursor-pointer hover:bg-[#484672] rounded" onClick={handleSelect}>
-                <img src={user?.photo || photo} alt="" className="bg-purple-300 h-12 w-12 rounded-full object-cover" />
+                <img src={user?.photo} alt="" className="bg-purple-300 h-12 w-12 rounded-full object-cover" />
                 <span className="text-white font-semibold">{user.displayName}</span>
             </div>}
         </div>

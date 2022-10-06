@@ -1,6 +1,5 @@
 import { signOut, User } from 'firebase/auth'
 import { useContext } from 'react'
-import photo from '../assets/profile.jpg'
 import { auth } from '../config/firebase'
 import { AuthContext } from '../context/AuthContext'
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -13,7 +12,7 @@ export const Navbar = () => {
                 Franco Chat
             </span>
             <div className="flex gap-2">
-                <img src={user?.photoURL || photo} alt="" className="bg-purple-300 h-6 w-6 rounded-full object-cover" />
+                <img src={user?.photoURL!} alt="" className="bg-purple-300 h-6 w-6 rounded-full object-cover" />
                 <span>{user?.displayName}</span>
                 <button className="bg-[#5d5b8d] text-xs px-2 text-white/80 cursor-pointer hover:text-white" onClick={() => { signOut(auth) }}>Logout</button>
             </div>
