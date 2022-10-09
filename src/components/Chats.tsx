@@ -23,6 +23,7 @@ export const Chats = () => {
             const unsub = onSnapshot(doc(db, "userChats", currentUser?.uid!), (doc) => {
                 const chatsData: [string, chatInfo][] = Object.entries(doc.data() as {});
                 setChats(chatsData)
+
             })
             return () => unsub()
         }
@@ -36,14 +37,16 @@ export const Chats = () => {
     }
     return (
 
-        <div className="mx-2">
+        <div className="mx-2  rounded-lg ">
             {chats.sort((a, b) => b[1].date - a[1].date).map((chat) => {
-                return <div key={chat[0]} className="flex gap-2 items-center mt-4 cursor:pointer" onClick={() => handleSelect(chat[1].userInfo)}>
+                const date = new Date(new Date(chat[1].date))
+                return <div key={chat[0]} className="flex gap-3 items-center cursor:pointer relative cursor-pointer py-2 px-3 bg-white dark:bg-white/75 dark:hover:bg-white/30 mt-2 rounded-3xl hover:bg-slate-200" onClick={() => handleSelect(chat[1].userInfo)}>
                     <img src={chat[1].userInfo.photoURL} alt="" className="h-12 w-12 rounded-full object-cover" />
                     <div className="flex flex-col">
-                        <span className="text-white font-semibold">{chat[1].userInfo.displayName}</span>
-                        <p className="text-sm">{chat[1]?.lastMessage?.text}</p>
+                        <span className="text-black font-semibold">{chat[1].userInfo.displayName}</span>
+                        <p className="text-xs text-gray-500 dark:text-black  ">{chat[1]?.lastMessage?.text}</p>
                     </div>
+                    <span className="ml-auto self-start text-xs">{date.getHours()}:{date.getMinutes()}</span>
                 </div>
             })}
         </div>

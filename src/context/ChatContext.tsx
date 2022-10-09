@@ -19,8 +19,8 @@ export const ChatContextProvider = ({ children }: LayoutProps) => {
             case "CHANGE_USER":
                 return {
                     user: action.payload,
-                    chatId: currentUser?.uid! > action.payload?.uid ? currentUser?.uid + action.payload?.uid : currentUser?.uid
-                }
+                    chatId: currentUser?.uid! > action.payload?.uid ? currentUser?.uid + action.payload?.uid : action.payload?.uid + currentUser?.uid
+                }//currentUser?.uid > user?.uid ? currentUser?.uid + user?.uid : user?.uid + currentUser?.uid
             default: return state
         }
     }

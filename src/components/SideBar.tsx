@@ -6,7 +6,7 @@ import { Search } from './Search'
 export const SideBar = () => {
     return (
 
-        <div className="bg-[#3e3c61]">
+        <div className="bg-[#F5F7FB] dark:bg-darkContent">
             <Navbar />
             <Search />
             <Chats />
